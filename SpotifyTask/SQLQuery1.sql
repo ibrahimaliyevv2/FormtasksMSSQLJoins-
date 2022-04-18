@@ -1,69 +1,67 @@
-CREATE DATABASE SpotifyDB
+CREATE DATABASE SPOTIFY 
+USE SPOTIFY
 
-USE SpotifyDB
-
-CREATE TABLE Artists
+CREATE TABLE Artist
 (
-	Id INT PRIMARY KEY IDENTITY,
-	FullName NVARCHAR(20),
-	Age INT
+	ID INT PRIMARY KEY IDENTITY,
+	FullName varchar(50),
+	Age INT,
 )
+INSERT INTO Artist
+VALUES
+('Dilqem',50),
+('Hikmet',44),
+('Ebulfez',67),
+('Tofiq',35)
+
 
 CREATE TABLE Albums
 (
-	Id INT PRIMARY KEY IDENTITY,
-	Name NVARCHAR(20),
-	ReleaseDate DATETIME2,
-	ArtistId INT FOREIGN KEY REFERENCES Artists(Id)
+	ID INT PRIMARY KEY IDENTITY,
+	Name varchar(50),
+	ArtistID INT FOREIGN KEY REFERENCES Artist(ID),
+	ReleaseDate DATETIME2
 )
+INSERT INTO Albums
+VALUES
+('DilqemAlbum',1,'2020-07-12'),
+('HikmetAlbum',2,'2020-08-14'),
+('EbulfezAlbum',3,'2020-06-16'),
+('TofiqAlbum',4,'2020-01-12')
 
 CREATE TABLE Musics
 (
-	Id INT PRIMARY KEY IDENTITY,
-	Name NVARCHAR(20),
+	ID INT PRIMARY KEY IDENTITY,
+	Name VARCHAR(50),
 	Duration INT,
-	AlbumId INT FOREIGN KEY REFERENCES Albums(Id)
+	AlbumID INT FOREIGN KEY REFERENCES Albums(ID),
 )
-
-CREATE TABLE ArtistsMusics
-(
-	Id INT PRIMARY KEY IDENTITY,
-	ArtistId INT FOREIGN KEY REFERENCES Artists(Id),
-	MusicId INT FOREIGN KEY REFERENCES Musics(Id),
-)
-
-INSERT INTO Artists
-VALUES
-('Eminem Rzaoglu', 38),
-('Weeknd Khudaferin', 27),
-('Katy Aslanzade', 42)
-
-
-INSERT INTO Albums
-VALUES
-('Bu heyat bizimdir', '2022-02-12',3),
-('Sabirin bazari', '2022-01-10',1),
-('Hemdullanin doneri', '2022-03-01',2)
-
 INSERT INTO Musics
 VALUES
-('Ay Hemdulla Hemdulla', 12, 2),
-('Bele heyat olar?', 32, 3),
-('Bir Sabir dayi vardi', 11, 1)
+('DilqemMahni',50,2),
+('HikmetMahni',100,3),
+('EbulfezMahni',40,4),
+('TofiqMahni',10,5)
 
-INSERT INTO ArtistsMusics
+CREATE TABLE MusicsArtist 
+(
+	ID INT PRIMARY KEY IDENTITY,
+	MusicID INT FOREIGN KEY REFERENCES Musics(ID),
+	ArtistID INT FOREIGN KEY REFERENCES Artist(ID)
+)
+INSERT INTO MusicsArtist
 VALUES
-(1,3),
 (2,1),
-(3,2)
+(3,2),
+(4,3),
+(5,4)
 
-SELECT * FROM Albums
 
 
-DROP TABLE Artists
 
-DROP TABLE ArtistsMusics
+select M.Name,M.Duration,Artist.FullName,Albums.Name from Musics as M
+join Albums on M.AlbumID=Albums.ID
+join Artist on Albums.ArtistID=Artist.ID
 
-DROP TABLE Musics
 
-DROP TABLE Albums
+SELECT Albums.Name,(SELECT COUNT(Id) from Musics Where Albums.ID=Musics.AlbumID) FROM Albums
