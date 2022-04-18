@@ -33,3 +33,20 @@ Aşağıdakı queryləri DML commandlarından istifadə edərək yazcaqsınız:
 
 1) Musics-in name-ni, totalSecond-nu, artist nama-ni, album name-ni göstərən bir query yazırsız.
 2) Albumun adını və həmin albumda neçə dənə mahnı var onu göstərən bir query yazırsız.
+
+
+Task-3:
+
+Notebooks Table 
+-Id
+-Name
+-Price
+-BrandId
+
+Brands Table
+-Id
+-Name
+
+1. Notebook datalarını Id, Name, BrandName şəklində göstərən SELECT query yazın.
+2. BrandName dəyərində 'a' olan Notbukları göstərən SELECT query yazın.
+3. Qiyməti 100-500 aralığında olan və BrandName dəyəri 'Apple' olan notbukları göstərən SELECT query yazın.
